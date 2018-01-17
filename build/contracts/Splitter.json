@@ -1,0 +1,345 @@
+{
+  "contract_name": "Splitter",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "stop",
+      "outputs": [],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "addr1",
+          "type": "address"
+        },
+        {
+          "name": "addr2",
+          "type": "address"
+        }
+      ],
+      "name": "split",
+      "outputs": [
+        {
+          "name": "success",
+          "type": "bool"
+        }
+      ],
+      "payable": true,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "isRunning",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "balances",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "withdraw",
+      "outputs": [
+        {
+          "name": "success",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "getOwner",
+      "outputs": [
+        {
+          "name": "owner",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "carol",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "changeOwner",
+      "outputs": [
+        {
+          "name": "success",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "run",
+      "outputs": [],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "bob",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "alice",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "aliceAddr",
+          "type": "address"
+        },
+        {
+          "name": "bobAddr",
+          "type": "address"
+        },
+        {
+          "name": "carolAddr",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "type": "constructor"
+    },
+    {
+      "payable": true,
+      "type": "fallback"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "sender",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "receiver1",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "receiver2",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "value",
+          "type": "uint256"
+        }
+      ],
+      "name": "LogSplitMoney",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "sender",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "ondOwner",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "LogNewOwner",
+      "type": "event"
+    }
+  ],
+  "unlinked_binary": "0x60606040526000805460a060020a60ff02191674010000000000000000000000000000000000000000179055341561003657600080fd5b6040516060806107238339810160405280805191906020018051919060200180519150505b5b60008054600160a060020a03191633600160a060020a03161790555b60018054600160a060020a03808616600160a060020a0319928316179092556002805485841690831617905560038054928416929091169190911790555b5050505b61065a806100c96000396000f300606060405236156100935763ffffffff60e060020a60003504166307da68f581146100ea5780630f2c9329146100ff5780632014e5d11461012d57806327e235e3146101545780633ccfd60b14610185578063893d20e8146101ac5780638b930f15146101db578063a6f9dae11461020a578063c04062261461023d578063c09cec7714610252578063fb47e3a214610281575b6100e85b60005460a060020a900460ff1615156100af57600080fd5b60015433600160a060020a03908116911614156100e4576002546003546100e291600160a060020a0390811691166102b0565b505b5b5b565b005b34156100f557600080fd5b6100e86103e3565b005b610119600160a060020a03600435811690602435166102b0565b604051901515815260200160405180910390f35b341561013857600080fd5b610119610425565b604051901515815260200160405180910390f35b341561015f57600080fd5b610173600160a060020a0360043516610435565b60405190815260200160405180910390f35b341561019057600080fd5b610119610447565b604051901515815260200160405180910390f35b34156101b757600080fd5b6101bf6104db565b604051600160a060020a03909116815260200160405180910390f35b34156101e657600080fd5b6101bf6104eb565b604051600160a060020a03909116815260200160405180910390f35b341561021557600080fd5b610119600160a060020a03600435166104fa565b604051901515815260200160405180910390f35b341561024857600080fd5b6100e86105c7565b005b341561025d57600080fd5b6101bf610610565b604051600160a060020a03909116815260200160405180910390f35b341561028c57600080fd5b6101bf61061f565b604051600160a060020a03909116815260200160405180910390f35b600080548190819060a060020a900460ff1615156102cd57600080fd5b600160a060020a03851615156102e257600080fd5b600160a060020a03841615156102f757600080fd5b6002345b069150349050816001141561033c5760001901600160a060020a03331660006001604051600060405180830381858888f19350505050151561033c57600080fd5b5b6002815b600160a060020a0380881660009081526004602052604080822080549590940494850190935590871681528190208054830190559091507f3d915f58601a48f9a0f99ac499f22fdf9db0baa6aa75100de42521af0b6b01b190339087908790859051600160a060020a039485168152928416602084015292166040808301919091526060820192909252608001905180910390a1600192505b5b505092915050565b60005433600160a060020a039081169116146103fe57600080fd5b60005460a060020a900460ff16156100e4576000805460a060020a60ff02191690555b5b5b565b60005460a060020a900460ff1681565b60046020526000908152604090205481565b60008054819060a060020a900460ff16151561046257600080fd5b50600160a060020a033316600090815260046020526040812054908111156104d157600160a060020a0333166000818152600460205260408082209190915582156108fc0290839051600060405180830381858888f1935050505015156104c857600080fd5b600191506104d6565b600091505b5b5090565b600054600160a060020a03165b90565b600354600160a060020a031681565b6000805433600160a060020a0390811691161461051657600080fd5b600160a060020a038216151561052b57600080fd5b600054600160a060020a038381169116146105bd576000547f95a4124b32fadd40e6e63088992a62e3505e61d1683b783d03e575d7c1dfb967903390600160a060020a031684604051600160a060020a03938416815291831660208301529091166040808301919091526060909101905180910390a160008054600160a060020a031916600160a060020a0384161790555b5060015b5b919050565b60005433600160a060020a039081169116146105e257600080fd5b60005460a060020a900460ff1615156100e4576000805460a060020a60ff02191660a060020a1790555b5b5b565b600254600160a060020a031681565b600154600160a060020a0316815600a165627a7a72305820318752cb64efb20e0b033b605cbacaa7a0ee22a418322ad9e1533e8f0e6275800029",
+  "networks": {
+    "42": {
+      "events": {
+        "0x3d915f58601a48f9a0f99ac499f22fdf9db0baa6aa75100de42521af0b6b01b1": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "sender",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "receiver1",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "receiver2",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "LogSplitMoney",
+          "type": "event"
+        },
+        "0x95a4124b32fadd40e6e63088992a62e3505e61d1683b783d03e575d7c1dfb967": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "sender",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "ondOwner",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "LogNewOwner",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x2c38456041a947761ff9b7cc9c1f1d2c2d1bf13f",
+      "updated_at": 1516191223836
+    },
+    "1516191749813": {
+      "events": {
+        "0x3d915f58601a48f9a0f99ac499f22fdf9db0baa6aa75100de42521af0b6b01b1": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "sender",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "receiver1",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "receiver2",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "LogSplitMoney",
+          "type": "event"
+        },
+        "0x95a4124b32fadd40e6e63088992a62e3505e61d1683b783d03e575d7c1dfb967": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "sender",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "ondOwner",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "LogNewOwner",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x794976228fb7441b4b8288d5376358c3945aaac8",
+      "updated_at": 1516191851735
+    }
+  },
+  "schema_version": "0.0.5",
+  "updated_at": 1516191851735
+}
